@@ -11,19 +11,6 @@ const config = {
 
 	kit: {
 		adapter: adapter()
-	},
-	vite: {
-		resolve: {
-			alias: {
-				'svelte-apollo': '/node_modules/svelte-apollo/dist/svelte-apollo.es.js'
-			}
-		},
-		optimizeDeps: {
-			exclude: ['@apollo/client']
-		},
-		ssr: {
-			noExternal: ['@apollo/client']
-		}
 	}
 };
 
