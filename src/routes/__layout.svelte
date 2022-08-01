@@ -1,7 +1,7 @@
 <script contex>
 	import '../app.css';
 
-	import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client/core';
+	import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client/core/core.cjs';
 	import { setClient } from 'svelte-apollo';
 	// import { ApolloClient, InMemoryCache, HttpLink, } from 'apollo-boost';
 
