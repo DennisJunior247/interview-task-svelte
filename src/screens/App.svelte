@@ -3,7 +3,7 @@
 
 	import Card from '../components/Card.svelte';
 	import SelectInput from '../components/SelectInput.svelte';
-	import { ApolloClient, InMemoryCache } from '@apollo/client/core/core.cjs';
+	import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 	import { setClient } from 'svelte-apollo';
 
 	const client = new ApolloClient({
