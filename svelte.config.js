@@ -10,7 +10,14 @@ const config = {
 	}),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+			resolve: {
+				alias: {
+					'svelte-apollo': '/node_modules/svelte-apollo/dist/svelte-apollo.es.js'
+				}
+			}
+		}
 	}
 };
 

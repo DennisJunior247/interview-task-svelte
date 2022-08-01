@@ -20,6 +20,7 @@
 	const countries = query(LIST_COUNTRIES);
 
 	console.log($countries);
+	let state: any;
 
 	const items = [
 		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP', exChangeRate: 0.82 },
