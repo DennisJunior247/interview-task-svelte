@@ -22,14 +22,14 @@
 	// console.log($countries);
 
 	const items = [
-		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP' },
-		{ value: 'Canada', label: '🇨🇦 Canada', currency: 'CAD' },
-		{ value: 'Nigeria', label: '🇳🇬 Nigeria', currency: 'NGN' },
-		{ value: 'South Africa', label: '🇿🇦 South Africa', currency: 'ZAR' },
-		{ value: 'China', label: '🇨🇳 China', currency: 'CNY' }
+		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP', exChangeRate: 0.82 },
+		{ value: 'Canada', label: '🇨🇦 Canada', currency: 'CAD', exChangeRate: 1.28 },
+		{ value: 'Nigeria', label: '🇳🇬 Nigeria', currency: 'NGN', exChangeRate: 415.87 },
+		{ value: 'South Africa', label: '🇿🇦 South Africa', currency: 'ZAR', exChangeRate: 16.59 },
+		{ value: 'China', label: '🇨🇳 China', currency: 'CNY', exChangeRate: 6.74 }
 	];
 
-	let selectedCountry: { value: string; label: string; currency: string };
+	let selectedCountry: { value: string; label: string; currency: string; exChangeRate: string };
 
 	function handleSelect(event: CustomEvent) {
 		selectedCountry = event.detail;

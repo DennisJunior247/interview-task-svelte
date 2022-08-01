@@ -89,6 +89,11 @@
 		};
 	});
 
+	const handleSelect = (e: CustomEvent) => {
+		selectedCountry = e.detail?.currency;
+		exChangeRate = e.detail?.exChangeRate;
+	};
+
 	const handleConvert = () => {
 		btcusdt = +BtcUsdtTradeData[1] * exChangeRate;
 		ethusdt = +EthUsdtTradeData[1] * exChangeRate;
@@ -96,35 +101,6 @@
 	};
 
 	$: btcusdt, adausdt, ethusdt && handleConvert();
-
-	const handleSelect = (e: CustomEvent) => {
-		selectedCountry = e.detail?.currency;
-		switch (selectedCountry) {
-			case 'GBP':
-				exChangeRate = 0.82;
-				handleConvert();
-				break;
-			case 'CAD':
-				exChangeRate = 1.28;
-				handleConvert();
-				break;
-			case 'CNY':
-				exChangeRate = 6.74;
-				handleConvert();
-				break;
-			case 'ZAR':
-				exChangeRate = 16.59;
-				handleConvert();
-				break;
-			case 'NGN':
-				exChangeRate = 415.87;
-				handleConvert();
-				break;
-			default:
-				exChangeRate = 1;
-				break;
-		}
-	};
 </script>
 
 <main class="w-full h-screen flex justify-center items-center ">
