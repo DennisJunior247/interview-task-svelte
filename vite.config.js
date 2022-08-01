@@ -8,8 +8,10 @@ const config = {
 		include: ['@apollo/client/core'],
 		exclude: ['@apollo/client']
 	},
-	ssr: {
-		noExternal: ['@apollo/client']
+	resolve: {
+		alias: {
+			'svelte-apollo': '/node_modules/svelte-apollo/dist/svelte-apollo.es.js'
+		}
 	}
 };
 
