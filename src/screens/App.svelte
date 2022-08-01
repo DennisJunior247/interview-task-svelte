@@ -28,6 +28,7 @@
 	let selectedCountry = 'USD';
 	let exChangeRate: number = 1;
 
+	// selected country currency value //
 	$: btcusdt = +BtcUsdtTradeData[1];
 	$: ethusdt = +EthUsdtTradeData[1];
 	$: adausdt = +AdaUsdtTradeData[1];
@@ -95,7 +96,7 @@
 		adausdt = +AdaUsdtTradeData[1] * exChangeRate;
 	};
 
-	$: btcusdt && handleConvert();
+	$: btcusdt, adausdt, ethusdt && handleConvert();
 
 	const handleSelect = (e: CustomEvent) => {
 		selectedCountry = e.detail?.currency;
