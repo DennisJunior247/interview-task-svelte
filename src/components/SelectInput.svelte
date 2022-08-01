@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { query, getClient } from 'svelte-apollo';
-	import { gql } from '@apollo/client/core';
+	import { gql } from '@apollo/client/core/index';
 	import { createEventDispatcher } from 'svelte';
 
 	let dispatch = createEventDispatcher();
