@@ -9,6 +9,7 @@ const config = {
 };
 
 export default config;
+
 // ssr: {
 // 	noExternal: ['@apollo/client']
 // }
