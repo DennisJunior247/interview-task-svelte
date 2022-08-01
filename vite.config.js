@@ -14,6 +14,9 @@ const config = {
 	optimizeDeps: {
 		include: ['@apollo/client/core'],
 		exclude: ['@apollo/client', 'svelte-apollo']
+	},
+	ssr: {
+		noExternal: ['@apollo/client']
 	}
 };
 
