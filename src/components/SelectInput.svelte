@@ -42,6 +42,22 @@
 	}
 </script>
 
+{#await $countries}
+	Loading..
+{:then result}
+	{console.log(result, 'res')}
+	{(state = result?.data)}
+	<div>
+		<!-- {#each result?.data?.countries as country (country?.code)}
+			<h1>
+				{country?.name}
+			</h1>
+		{/each} -->
+	</div>
+{:catch error}
+	<p class="error">{error}</p>
+{/await}
+
 <div>
 	<label class="text-xs text-[#dcdbe1]" for="food">Select your Country </label>
 	<div class="w-96">
