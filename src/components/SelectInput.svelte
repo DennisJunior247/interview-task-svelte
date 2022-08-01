@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import { query, getClient } from 'svelte-apollo';
-	import { gql } from '@apollo/client';
+	import { gql } from '@apollo/client/core';
 	import { createEventDispatcher } from 'svelte';
 
 	let dispatch = createEventDispatcher();
@@ -17,7 +17,18 @@
 		}
 	`;
 
-	const countries = query(LIST_COUNTRIES);
+	interface countryType {
+		name: string;
+		code: string;
+		emoji: string;
+		currency: string;
+	}
+
+	interface countriesTypeData {
+		countries: countryType[];
+	}
+
+	const countries = query<countriesTypeData>(LIST_COUNTRIES);
 
 	console.log($countries);
 	let state: any;
@@ -42,6 +53,23 @@
 	}
 </script>
 
+<!-- {#await $countries}
+	Loading..
+{:then result}
+	{console.log(result, 'res')}
+	{(state = result?.data)}
+	<div>
+		{#if result && result.data}
+			{#each result.data.countries as country (country?.code)}
+				<h1>
+					{country?.name}
+				</h1>
+			{/each}
+		{/if}
+	</div>
+{:catch error}
+	<p class="error">{error}</p>
+{/await} -->
 
 <div>
 	<label class="text-xs text-[#dcdbe1]" for="food">Select your Country </label>
