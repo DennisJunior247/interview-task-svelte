@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Select from 'svelte-select';
-	import { query } from 'svelte-apollo';
+	import { query, getClient } from 'svelte-apollo';
 	import { gql } from '@apollo/client';
 	import { createEventDispatcher } from 'svelte';
 
@@ -19,7 +19,7 @@
 
 	const countries = query(LIST_COUNTRIES);
 
-	// console.log($countries);
+	console.log($countries);
 
 	const items = [
 		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP', exChangeRate: 0.82 },

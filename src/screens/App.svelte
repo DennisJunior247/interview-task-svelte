@@ -2,15 +2,6 @@
 	import { onMount } from 'svelte';
 	import Card from '../components/Card.svelte';
 	import SelectInput from '../components/SelectInput.svelte';
-	import { ApolloClient, InMemoryCache } from '@apollo/client/core';
-	import { setClient } from 'svelte-apollo';
-
-	const client = new ApolloClient({
-		cache: new InMemoryCache(),
-		uri: 'https://countries.trevorblades.com/'
-	});
-
-	setClient(client);
 
 	// Btcusdt state //
 	let BtcUsdtTradeData: [string, number] = ['loading...', -0];
