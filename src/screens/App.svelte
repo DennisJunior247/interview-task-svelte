@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-
 	import Card from '../components/Card.svelte';
 	import SelectInput from '../components/SelectInput.svelte';
 	import { ApolloClient, InMemoryCache } from '@apollo/client/core';
