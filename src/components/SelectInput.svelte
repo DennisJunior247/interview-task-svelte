@@ -30,9 +30,6 @@
 
 	const countries = query<countriesTypeData>(LIST_COUNTRIES);
 
-	console.log($countries);
-	let state: any;
-
 	const items = [
 		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP', exChangeRate: 0.82 },
 		{ value: 'Canada', label: '🇨🇦 Canada', currency: 'CAD', exChangeRate: 1.28 },
