@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { query } from 'svelte-apollo';
 
-	import { LIST_COUNTRIES } from '../gql';
+	import { LIST_COUNTRIES } from '../gql/index';
 	import type { countriesTypeData } from '../types';
 
 	import Card from '../components/Card.svelte';
