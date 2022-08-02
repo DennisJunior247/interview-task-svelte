@@ -1,44 +1,38 @@
 <script lang="ts">
 	import Select from 'svelte-select';
-	import { query, getClient } from 'svelte-apollo';
-	import { gql } from '@apollo/client/core/index';
-	import { createEventDispatcher } from 'svelte';
+
+	import { createEventDispatcher, beforeUpdate } from 'svelte';
+	import type { countryType, stateType } from 'src/types';
+
+	export let countriesData: countryType[] | undefined = [];
 
 	let dispatch = createEventDispatcher();
 
-	const LIST_COUNTRIES = gql`
-		{
-			countries {
-				name
-				code
-				currency
-				emoji
-			}
-		}
-	`;
+	let state: stateType | undefined = [];
 
-	interface countryType {
-		name: string;
-		code: string;
-		emoji: string;
-		currency: string;
-	}
+	beforeUpdate(() => {
+		const res = countriesData
+			?.filter((res) => {
+				return (
+					res?.name === 'United Kingdom' ||
+					res?.name === 'Canada' ||
+					res?.name === 'Nigeria' ||
+					res?.name === 'South Africa' ||
+					res?.name === 'China'
+				);
+			})
+			.map((items) => {
+				return {
+					value: items?.name,
+					label: `${items?.emoji} ${items?.name}`,
+					currency: items?.currency
+				};
+			});
 
-	interface countriesTypeData {
-		countries: countryType[];
-	}
+		state = res;
+	});
 
-	const countries = query<countriesTypeData>(LIST_COUNTRIES);
-
-	const items = [
-		{ value: 'United Kingdom', label: '🇬🇧 United Kingdom', currency: 'GBP', exChangeRate: 0.82 },
-		{ value: 'Canada', label: '🇨🇦 Canada', currency: 'CAD', exChangeRate: 1.28 },
-		{ value: 'Nigeria', label: '🇳🇬 Nigeria', currency: 'NGN', exChangeRate: 415.87 },
-		{ value: 'South Africa', label: '🇿🇦 South Africa', currency: 'ZAR', exChangeRate: 16.59 },
-		{ value: 'China', label: '🇨🇳 China', currency: 'CNY', exChangeRate: 6.74 }
-	];
-
-	let selectedCountry: { value: string; label: string; currency: string; exChangeRate: string };
+	let selectedCountry: stateType;
 
 	function handleSelect(event: CustomEvent) {
 		selectedCountry = event.detail;
@@ -50,24 +44,6 @@
 	}
 </script>
 
-<!-- {#await $countries}
-	Loading..
-{:then result}
-	{console.log(result, 'res')}
-	{(state = result?.data)}
-	<div>
-		{#if result && result.data}
-			{#each result.data.countries as country (country?.code)}
-				<h1>
-					{country?.name}
-				</h1>
-			{/each}
-		{/if}
-	</div>
-{:catch error}
-	<p class="error">{error}</p>
-{/await} -->
-
 <div>
 	<label class="text-xs text-[#dcdbe1]" for="food">Select your Country </label>
 	<div class="w-96">
@@ -75,7 +51,7 @@
 			showChevron={true}
 			id="food"
 			placeholder="Select"
-			{items}
+			items={state}
 			on:select={handleSelect}
 			on:clear={handleClear}
 		/>

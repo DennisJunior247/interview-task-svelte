@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { query } from 'svelte-apollo';
+
+	import { LIST_COUNTRIES } from '../gql';
+	import type { countriesTypeData } from '../types';
+
 	import Card from '../components/Card.svelte';
 	import SelectInput from '../components/SelectInput.svelte';
+
+	const countries = query<countriesTypeData>(LIST_COUNTRIES);
 
 	// Btcusdt state //
 	let BtcUsdtTradeData: [string, number] = ['loading...', -0];
@@ -82,7 +89,26 @@
 
 	const handleSelect = (e: CustomEvent) => {
 		selectedCountry = e.detail?.currency;
-		exChangeRate = e.detail?.exChangeRate;
+		switch (selectedCountry) {
+			case 'GBP':
+				exChangeRate = 0.82;
+				break;
+			case 'CAD':
+				exChangeRate = 1.28;
+				break;
+			case 'NGN':
+				exChangeRate = 415.87;
+				break;
+			case 'ZAR':
+				exChangeRate = 16.59;
+				break;
+			case 'CNY':
+				exChangeRate = 6.74;
+				break;
+			default:
+				exChangeRate = 1;
+				break;
+		}
 	};
 
 	const handleConvert = () => {
@@ -94,67 +120,73 @@
 	$: btcusdt, adausdt, ethusdt && handleConvert();
 </script>
 
-<main class="w-full h-screen flex justify-center items-center ">
-	<div
-		class="bg-white w-9/12	h-5/6 rounded-lg shadow-xl flex flex-col justify-center items-center p-10"
-	>
-		<SelectInput on:handle-select={handleSelect} />
-		<div class="flex flex-col">
-			<div class="flex gap-6 mt-8">
-				<Card>
-					<div class="flex justify-between w-full">
-						<span class="text-[#8a8799]">{BtcUsdtTradeData[0]}</span>
-						<span class={BtcUsdtPercentageStyle}>
-							{BtcUsdtTickerData[0]?.toFixed(2) + '%'}
+{#await $countries}
+	Loading..
+{:then result}
+	<main class="w-full h-screen flex justify-center items-center ">
+		<div
+			class="bg-white w-9/12	h-5/6 rounded-lg shadow-xl flex flex-col justify-center items-center p-10"
+		>
+			<SelectInput countriesData={result?.data?.countries} on:handle-select={handleSelect} />
+			<div class="flex flex-col">
+				<div class="flex gap-6 mt-8">
+					<Card>
+						<div class="flex justify-between w-full">
+							<span class="text-[#8a8799]">{BtcUsdtTradeData[0]}</span>
+							<span class={BtcUsdtPercentageStyle}>
+								{BtcUsdtTickerData[0]?.toFixed(2) + '%'}
+							</span>
+						</div>
+						<span class="text-[#31315e] text-xl font-bold">
+							{BtcUsdtTradeData[1]?.toFixed(2)}
 						</span>
-					</div>
-					<span class="text-[#31315e] text-xl font-bold">
-						{BtcUsdtTradeData[1]?.toFixed(2)}
-					</span>
-					<span class="text-[#57547a] font-bold text-sm">
-						Volume: {BtcUsdtTickerData[1]?.toFixed(2)}
-					</span>
-				</Card>
-				<Card>
-					<div class="flex justify-between w-full">
-						<span class="text-[#8a8799]">{EthUsdtTradeData[0]}</span>
-						<span class={EthUsdtPercentageStyle}>
-							{EthUsdtTickerData[0]?.toFixed(2) + '%'}
+						<span class="text-[#57547a] font-bold text-sm">
+							Volume: {BtcUsdtTickerData[1]?.toFixed(2)}
 						</span>
-					</div>
-					<span class="text-[#31315e] text-xl font-bold">
-						{EthUsdtTradeData[1]?.toFixed(2)}
-					</span>
-					<span class="text-[#57547a] font-bold text-sm">
-						Volume: {EthUsdtTickerData[1]?.toFixed(2)}
-					</span>
-				</Card>
-				<Card>
-					<div class="flex justify-between w-full">
-						<span class="text-[#8a8799]">{AdaUsdtTradeData[0]}</span>
-						<span class={AdaUsdtPercentageStyle}>
-							{AdaUsdtTickerData[0]?.toFixed(2) + '%'}
+					</Card>
+					<Card>
+						<div class="flex justify-between w-full">
+							<span class="text-[#8a8799]">{EthUsdtTradeData[0]}</span>
+							<span class={EthUsdtPercentageStyle}>
+								{EthUsdtTickerData[0]?.toFixed(2) + '%'}
+							</span>
+						</div>
+						<span class="text-[#31315e] text-xl font-bold">
+							{EthUsdtTradeData[1]?.toFixed(2)}
 						</span>
-					</div>
-					<span class="text-[#31315e] text-xl font-bold">
-						{AdaUsdtTradeData[1]?.toFixed(2)}
+						<span class="text-[#57547a] font-bold text-sm">
+							Volume: {EthUsdtTickerData[1]?.toFixed(2)}
+						</span>
+					</Card>
+					<Card>
+						<div class="flex justify-between w-full">
+							<span class="text-[#8a8799]">{AdaUsdtTradeData[0]}</span>
+							<span class={AdaUsdtPercentageStyle}>
+								{AdaUsdtTickerData[0]?.toFixed(2) + '%'}
+							</span>
+						</div>
+						<span class="text-[#31315e] text-xl font-bold">
+							{AdaUsdtTradeData[1]?.toFixed(2)}
+						</span>
+						<span class="text-[#57547a] font-bold text-sm">
+							Volume: {AdaUsdtTickerData[1]?.toFixed(2)}
+						</span>
+					</Card>
+				</div>
+				<div class="flex gap-6 mt-4">
+					<span class="w-60 text-[#515173] font-bold p-2"
+						>{selectedCountry}:{btcusdt?.toFixed(2)}
 					</span>
-					<span class="text-[#57547a] font-bold text-sm">
-						Volume: {AdaUsdtTickerData[1]?.toFixed(2)}
+					<span class="w-60 text-[#515173] font-bold p-2"
+						>{selectedCountry}:{ethusdt?.toFixed(2)}
 					</span>
-				</Card>
-			</div>
-			<div class="flex gap-6 mt-4">
-				<span class="w-60 text-[#515173] font-bold p-2"
-					>{selectedCountry}:{btcusdt?.toFixed(2)}
-				</span>
-				<span class="w-60 text-[#515173] font-bold p-2"
-					>{selectedCountry}:{ethusdt?.toFixed(2)}
-				</span>
-				<span class="w-60 text-[#515173] font-bold p-2"
-					>{selectedCountry}:{adausdt?.toFixed(2)}
-				</span>
+					<span class="w-60 text-[#515173] font-bold p-2"
+						>{selectedCountry}:{adausdt?.toFixed(2)}
+					</span>
+				</div>
 			</div>
 		</div>
-	</div>
-</main>
+	</main>
+{:catch error}
+	<p class="error">{error}</p>
+{/await}
