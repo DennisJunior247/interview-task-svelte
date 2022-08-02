@@ -34,7 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@apollo/client": "^3.6.9",
+		"@apollo/client": "^3.5.6",
 		"graphql": "^15.8.0",
 		"svelte-apollo": "^0.5.0",
 		"svelte-select": "^4.4.7",
