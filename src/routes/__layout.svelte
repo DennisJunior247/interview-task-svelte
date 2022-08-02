@@ -7,6 +7,7 @@
 	const httpLink = new HttpLink({
 		uri: 'https://countries.trevorblades.com/'
 	});
+
 	const cache = new InMemoryCache();
 
 	const client = new ApolloClient({

@@ -9,8 +9,10 @@
 	let dispatch = createEventDispatcher();
 
 	let state: stateType | undefined = [];
+	let selectedCountry: stateType;
 
 	beforeUpdate(() => {
+		//filtering country data //
 		const res = countriesData
 			?.filter((res) => {
 				return (
@@ -31,8 +33,6 @@
 
 		state = res;
 	});
-
-	let selectedCountry: stateType;
 
 	function handleSelect(event: CustomEvent) {
 		selectedCountry = event.detail;
